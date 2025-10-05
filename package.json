@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://CHARTCollab.github.io/Guideline",
+  "homepage": "https://CHARTGuideline.github.io",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

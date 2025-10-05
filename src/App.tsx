@@ -12,7 +12,7 @@ import Diagram from './pages/Diagram';
 function App() {
   return (
     <ThemeProvider>
-      <Router basename="/Guideline">
+      <Router>
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <Header />
           <main style={{ flex: 1 }}>
