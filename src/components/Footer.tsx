@@ -1,5 +1,6 @@
 import { useTheme } from '../contexts/ThemeContext';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import logo from './CHARTlogo.jpg';
 
 const FooterContainer = styled.footer<{ theme: any }>`
@@ -63,10 +64,10 @@ const Footer = () => {
         <FooterSection theme={theme}>
           <h4>Quick Links</h4>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <a href="/resources">Resources</a>
-            <a href="/about">About</a>
-            <a href="/citation">Citation</a>
-            <a href="/feedback">Feedback</a>
+            <Link to="/resources">Resources</Link>
+            <Link to="/about">About</Link>
+            <Link to="/citation">Citation</Link>
+            <Link to="/feedback">Feedback</Link>
           </div>
         </FooterSection>
         <FooterSection theme={theme}>
