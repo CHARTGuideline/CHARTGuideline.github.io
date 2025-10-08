@@ -146,7 +146,7 @@ const About = () => {
         >
           <h2>Filling a Critical Gap</h2>
           <p>
-            Gap exists in published studies but nothing to standardize reporting so that they can possibly be implemented later
+            The only reporting guidance for chatbot health advice (CHA) studies that evaluate the ability of generative AI-driven chatbots to summarize evidence or provide health advice
           </p>
         </ContentBlock>
         
@@ -158,7 +158,7 @@ const About = () => {
         >
           <h2>Our Mission</h2>
           <p>
-            Transparent and standardized reporting of chatbot health advice studies to improve research quality and facilitate implementation.
+            To promote transparent and standardized reporting of chatbot health advice studies to improve research quality and facilitate implementation.
           </p>
         </ContentBlock>
         
@@ -168,9 +168,11 @@ const About = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2>Development Process</h2>
+          <h2>CHART Development</h2>
           <p>
-            Began with a comprehensive scoping review to identify use cases, then an anonymous online Delphi Consensus meeting, then hybrid meeting with global multidisciplinary experts.
+            1. Systematic review to draft checklist items<br />
+            2. Delphi consensus to expand checklist items<br />
+            3. Panel consensus meetings to refine checklist and flow diagram
           </p>
         </ContentBlock>
       </ContentGrid>
@@ -191,7 +193,7 @@ const About = () => {
             </FeatureIcon>
             <FeatureTitle theme={theme}>Evidence-Based</FeatureTitle>
             <FeatureDescription theme={theme}>
-              Developed through a comprehensive scoping review and multiple expert consensus rounds including a Delphi consensus
+              Systematic review
             </FeatureDescription>
           </FeatureItem>
           
@@ -210,7 +212,7 @@ const About = () => {
             </FeatureIcon>
             <FeatureTitle theme={theme}>Comprehensive</FeatureTitle>
             <FeatureDescription theme={theme}>
-              Covers all aspects of chatbot health advice study reporting
+              Addresses all methodological aspects of CHA study development
             </FeatureDescription>
           </FeatureItem>
           
@@ -229,7 +231,7 @@ const About = () => {
             </FeatureIcon>
             <FeatureTitle theme={theme}>User-Friendly</FeatureTitle>
             <FeatureDescription theme={theme}>
-              Designed for researchers, reviewers, readers and journal editors to easily understand if standards have been met
+              Designed by a diverse group of researchers, clinicians, machine learning experts, epidemiologists, and journal editors.
             </FeatureDescription>
           </FeatureItem>
         </FeaturesGrid>

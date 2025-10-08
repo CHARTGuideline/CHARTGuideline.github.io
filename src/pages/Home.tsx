@@ -57,6 +57,46 @@ const Description = styled.p<{ theme: any }>`
   z-index: 1;
 `;
 
+const ScrollIndicator = styled(motion.div)`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  z-index: 1;
+`;
+
+const ScrollText = styled.span`
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+`;
+
+const MouseIcon = styled.div`
+  width: 28px;
+  height: 45px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const MouseDot = styled(motion.div)`
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 8px;
+`;
+
 const ResourceGrid = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -134,24 +174,31 @@ const ButtonDownload = styled.a<{ theme: any }>`
 const Home = () => {
   const { theme } = useTheme();
 
+  const scrollToResources = () => {
+    window.scrollTo({
+      top: window.innerHeight - 100,
+      behavior: 'smooth'
+    });
+  };
+
   const resources = [
     {
       title: 'CHART Checklist',
       description: 'Comprehensive checklist for chatbot health advice study authors',
-      link: '/Full Checklist.docx',
-      isDownload: true
-    },
-    {
-      title: 'Methodological Diagram',
-      description: 'Visual flowchart for transparent reporting of study components',
-      link: '/diagram',
+      link: '/FullChecklist',
       isDownload: false
     },
     {
       title: 'Abstract Checklist',
       description: 'Concise checklist for chatbot health advice study abstracts',
-      link: '/Abstract Checklist.docx',
-      isDownload: true
+      link: '/AbstractChecklist',
+      isDownload: false
+    },
+    {
+      title: 'Methodological Flow Diagram',
+      description: 'Visual flowchart that illustrates CHA study development',
+      link: '/diagram',
+      isDownload: false
     }
   ];
 
@@ -170,6 +217,16 @@ const Home = () => {
           the performance of generative AI-driven chatbots for the purposes of summarising 
           clinical evidence and providing health advice.
         </Description>
+        
+        <ScrollIndicator onClick={scrollToResources}>
+          <ScrollText>Scroll to explore</ScrollText>
+          <MouseIcon>
+            <MouseDot
+              animate={{ y: [0, 20, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </MouseIcon>
+        </ScrollIndicator>
       </Hero>
       
       <ResourceGrid>

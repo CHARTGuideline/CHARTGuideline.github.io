@@ -56,6 +56,8 @@ const NavLinks = styled.div<{ isOpen?: boolean; theme?: any }>`
     padding: 2rem;
     transform: translateY(${props => props.isOpen ? '0' : '-100%'});
     opacity: ${props => props.isOpen ? '1' : '0'};
+    visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+    pointer-events: ${props => props.isOpen ? 'auto' : 'none'};
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px ${props => props.theme.shadow};
   }
@@ -106,18 +108,20 @@ const Header = () => {
   const { theme, isDark, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <HeaderContainer theme={theme} initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
       <Nav>
-        <Logo to="/" theme={theme} aria-label="CHART homepage">
+        <Logo to="/" theme={theme} aria-label="CHART homepage" onClick={closeMenu}>
           <LogoImage src={logo} alt="CHART logo" />
         </Logo>
         <NavLinks isOpen={isOpen} theme={theme}>
-          <NavLink to="/" theme={theme}>Home</NavLink>
-          <NavLink to="/resources" theme={theme}>Resources</NavLink>
-          <NavLink to="/about" theme={theme}>About</NavLink>
-          <NavLink to="/citation" theme={theme}>Citation</NavLink>
-          <NavLink to="/feedback" theme={theme}>Feedback</NavLink>
+          <NavLink to="/" theme={theme} onClick={closeMenu}>Home</NavLink>
+          <NavLink to="/fullchecklist" theme={theme} onClick={closeMenu}>CHART Checklist</NavLink>
+          <NavLink to="/abstractchecklist" theme={theme} onClick={closeMenu}>Abstract Checklist</NavLink>
+          <NavLink to="/diagram" theme={theme} onClick={closeMenu}>Methodological Diagram</NavLink>
+          <NavLink to="/citation" theme={theme} onClick={closeMenu}>Citation</NavLink>
         </NavLinks>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <ThemeToggle onClick={toggleTheme} theme={theme}>

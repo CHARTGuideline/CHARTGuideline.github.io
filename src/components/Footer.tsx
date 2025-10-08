@@ -56,7 +56,7 @@ const Footer = () => {
       </div>
       <FooterContent>
         <FooterSection theme={theme}>
-          <h4>About CHART</h4>
+          <h4><Link to="/about" style={{ textDecoration: 'none', color: 'inherit' }}>About CHART</Link></h4>
           <p>
             Advancing the quality of chatbot health advice studies through transparent reporting.
           </p>
@@ -72,8 +72,8 @@ const Footer = () => {
         </FooterSection>
         <FooterSection theme={theme}>
           <h4>Contact</h4>
-          <p>For questions about the CHART guideline:</p>
-          <a href="mailto:bright.huo@dal.ca">bright.huo@dal.ca</a>
+          <p>For questions and collaboration inquiries:</p>
+          <a href="mailto:info@chartguideline.com">info@chartguideline.com</a>
         </FooterSection>
       </FooterContent>
       <Copyright theme={theme}>

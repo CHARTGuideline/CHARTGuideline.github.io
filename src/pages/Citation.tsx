@@ -127,12 +127,17 @@ const JournalsGrid = styled.div`
   margin-top: 1.5rem;
 `;
 
-const JournalItem = styled.div<{ theme: any }>`
-  background: ${props => props.theme.surfaceAlt};
-  border: 1px solid ${props => props.theme.border};
+const JournalItem = styled.div<{ theme: any; featured?: boolean }>`
+  background: ${props => props.featured ? props.theme.primary : props.theme.surfaceAlt};
+  border: 1px solid ${props => props.featured ? props.theme.primary : props.theme.border};
   border-radius: 8px;
   padding: 1.5rem;
   transition: all 0.3s ease;
+  position: relative;
+  
+  ${props => props.featured && `
+    box-shadow: 0 8px 24px ${props.theme.shadowHover};
+  `}
   
   &:hover {
     transform: translateY(-4px);
@@ -141,18 +146,31 @@ const JournalItem = styled.div<{ theme: any }>`
   }
   
   h3 {
-    color: ${props => props.theme.text};
+    color: ${props => props.featured ? 'white' : props.theme.text};
     font-size: 1.1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
   }
 `;
 
-const JournalLink = styled.a<{ theme: any }>`
+const FeaturedBadge = styled.span<{ theme: any }>`
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+`;
+
+const JournalLink = styled.a<{ theme: any; featured?: boolean }>`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: ${props => props.theme.primary};
+  color: ${props => props.featured ? 'white' : props.theme.primary};
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -163,70 +181,36 @@ const JournalLink = styled.a<{ theme: any }>`
   }
   
   &:hover {
-    color: ${props => props.theme.primaryHover};
-  }
-`;
-
-const GuidelinesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 1.5rem;
-`;
-
-const GuidelineItem = styled.div<{ theme: any }>`
-  background: ${props => props.theme.surfaceAlt};
-  border-left: 4px solid ${props => props.theme.primary};
-  padding: 1.5rem;
-  border-radius: 6px;
-  
-  h3 {
-    color: ${props => props.theme.primary};
-    font-size: 1.2rem;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-  }
-  
-  p {
-    color: ${props => props.theme.textSecondary};
-    line-height: 1.7;
-  }
-`;
-
-const MembersContent = styled.div<{ theme: any }>`
-  background: ${props => props.theme.surfaceAlt};
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
-  padding: 2rem;
-  margin-top: 1.5rem;
-  text-align: center;
-  
-  p {
-    color: ${props => props.theme.textSecondary};
-    font-style: italic;
-    font-size: 1.1rem;
+    color: ${props => props.featured ? 'rgba(255, 255, 255, 0.8)' : props.theme.primaryHover};
+    text-decoration: underline;
   }
 `;
 
 const Citation = () => {
   const { theme } = useTheme();
-  const [citationFormat, setCitationFormat] = useState('vancouver');
+  const [citationFormat, setCitationFormat] = useState('ama');
   const [copySuccess, setCopySuccess] = useState(false);
   
   const citations = {
+    ama: 'Reporting guideline for chatbot health advice studies: the Chatbot Assessment Reporting Tool (CHART) statement. BMJ Medicine. 2025;4:e001632. https://doi.org/10.1136/bmjmed-2025-001632',
     vancouver: 'Reporting guideline for chatbot health advice studies: the Chatbot Assessment Reporting Tool (CHART) statement. BMJ Medicine. 2025;4:e001632. https://doi.org/10.1136/bmjmed-2025-001632',
     apa: 'CHART Collaborative. (2025). Reporting guideline for chatbot health advice studies: The Chatbot Assessment Reporting Tool (CHART) statement. BMJ Medicine, 4, e001632. https://doi.org/10.1136/bmjmed-2025-001632',
     mla: 'CHART Collaborative. "Reporting Guideline for Chatbot Health Advice Studies: The Chatbot Assessment Reporting Tool (CHART) Statement." BMJ Medicine, vol. 4, 2025, e001632. doi:10.1136/bmjmed-2025-001632.'
   };
   
-  const journals = [
-    { name: 'BMJ Medicine', url: 'https://bit.ly/CHARTbmjmed' },
-    { name: 'British Journal of Surgery', url: 'https://bit.ly/CHARTbjs' },
-    { name: 'BMC Medicine', url: 'https://bit.ly/CHARTbmc' },
-    { name: 'JAMA Network Open', url: 'https://bit.ly/CHARTjamao' },
-    { name: 'Annals of Family Medicine', url: 'https://bit.ly/CHARTannfam' },
-    { name: 'Artificial Intelligence in Medicine', url: 'https://bit.ly/CHARTartmed' },
-    { name: 'BMJ', url: 'https://bit.ly/CHARTbmj' }
+  const mainArticle = {
+    name: 'BMJ',
+    url: 'https://www.bmj.com/content/390/bmj-2024-083305',
+    featured: true
+  };
+
+  const disseminationJournals = [
+    { name: 'BMJ Medicine', url: 'https://bmjmedicine.bmj.com/content/4/1/e001632' },
+    { name: 'JAMA Network Open', url: 'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2837224' },
+    { name: 'Annals of Family Medicine', url: 'https://www.annfammed.org/content/early/2025/07/29/afm.250386' },
+    { name: 'Artificial Intelligence in Medicine', url: 'https://www.sciencedirect.com/science/article/pii/S0933365725001575?via%3Dihub' },
+    { name: 'BMC Medicine', url: 'https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-025-04274-w' },
+    { name: 'British Journal of Surgery', url: 'https://academic.oup.com/bjs/article/112/8/znaf142/8220472?login=true' }
   ];
   
   const copyCitation = () => {
@@ -238,8 +222,7 @@ const Citation = () => {
   return (
     <PageContainer theme={theme}>
       <PageHeader theme={theme}>
-        <h1>Citation</h1>
-        <p>How to cite the CHART reporting guideline</p>
+        <h1>Cite CHART</h1>
       </PageHeader>
       
       <CitationBlock
@@ -248,7 +231,7 @@ const Citation = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2>How to Cite CHART</h2>
+        <h2>Cite CHART</h2>
         <CitationBox theme={theme}>
           <CitationControls theme={theme}>
             <label htmlFor="citationFormat">Citation Format:</label>
@@ -257,7 +240,8 @@ const Citation = () => {
               value={citationFormat}
               onChange={(e) => setCitationFormat(e.target.value)}
             >
-              <option value="vancouver">Vancouver (Default)</option>
+              <option value="ama">AMA (Default)</option>
+              <option value="vancouver">Vancouver</option>
               <option value="apa">APA</option>
               <option value="mla">MLA</option>
             </select>
@@ -279,11 +263,22 @@ const Citation = () => {
         theme={theme}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <h2>Published In 7 Journals to Ensure Dissemination</h2>
+        <h2>Publications</h2>
         <JournalsGrid>
-          {journals.map((journal, index) => (
+          <JournalItem theme={theme} featured={true}>
+            <FeaturedBadge theme={theme}>Explanation and Elaboration Article</FeaturedBadge>
+            <h3>{mainArticle.name}</h3>
+            <JournalLink href={mainArticle.url} target="_blank" rel="noopener noreferrer" theme={theme} featured={true}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              View Article
+            </JournalLink>
+          </JournalItem>
+          {disseminationJournals.map((journal, index) => (
             <JournalItem key={index} theme={theme}>
               <h3>{journal.name}</h3>
               <JournalLink href={journal.url} target="_blank" rel="noopener noreferrer" theme={theme}>
@@ -296,37 +291,6 @@ const Citation = () => {
             </JournalItem>
           ))}
         </JournalsGrid>
-      </CitationBlock>
-      
-      <CitationBlock
-        theme={theme}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <h2>Citation Guidelines</h2>
-        <GuidelinesGrid>
-          <GuidelineItem theme={theme}>
-            <h3>For Research Papers</h3>
-            <p>When referencing CHART in your research methodology or discussion sections, please cite the main publication and indicate which specific resources (Full Checklist, Flow Diagram, or Abstract Checklist) you used.</p>
-          </GuidelineItem>
-          <GuidelineItem theme={theme}>
-            <h3>For Reviews and Editorials</h3>
-            <p>When discussing reporting standards in chatbot health research, cite CHART as a framework for improving transparency and reproducibility in the field.</p>
-          </GuidelineItem>
-        </GuidelinesGrid>
-      </CitationBlock>
-      
-      <CitationBlock
-        theme={theme}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        <h2>CHART Collaborative Members</h2>
-        <MembersContent theme={theme}>
-          <p>Awaiting names.</p>
-        </MembersContent>
       </CitationBlock>
     </PageContainer>
   );

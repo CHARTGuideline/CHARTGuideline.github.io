@@ -136,97 +136,42 @@ const ButtonLink = styled(Link)<{ theme: any; variant?: 'primary' | 'secondary' 
   }
 `;
 
-const UsageGuide = styled.div<{ theme: any }>`
-  background: ${props => props.theme.surfaceAlt};
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  border: 1px solid ${props => props.theme.borderLight};
-  
-  h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: ${props => props.theme.primary};
-    margin-bottom: 3rem;
-  }
-`;
-
-const UsageSteps = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-`;
-
-const Step = styled.div<{ theme: any }>`
-  display: flex;
-  gap: 1.5rem;
-  
-  .step-number {
-    width: 48px;
-    height: 48px;
-    background: ${props => props.theme.primary};
-    color: ${props => props.theme.surface};
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  
-  .step-content {
-    h3 {
-      font-size: 1.2rem;
-      color: ${props => props.theme.text};
-      margin-bottom: 0.5rem;
-    }
-    
-    p {
-      color: ${props => props.theme.textSecondary};
-      line-height: 1.6;
-    }
-  }
-`;
-
 const Resources = () => {
   const { theme } = useTheme();
 
   const resources = [
     {
-      title: 'Full Checklist',
+      title: 'CHART Checklist',
       type: 'Word Document',
       description: 'A comprehensive checklist that provides complete guidance for conducting and reporting chatbot health advice studies. Includes detailed criteria for transparent reporting.',
-      pdfLink: '/Full Checklist.pdf',
-      docxLink: '/Full Checklist.docx',
+      pdfLink: '/CHART Checklist.pdf',
+      docxLink: '/CHART Checklist.docx',
+      fillLink: '/fullchecklist',
       icon: (
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/>
-      ),
-      primaryButton: 'View Checklist',
-      secondaryButton: 'Download word file to edit'
-    },
-    {
-      title: 'Flow Diagram',
-      type: 'Word Document',
-      description: 'A visual flowchart that illustrates the systematic process of developing the study being reported. This includes information about the prompt used and the model information.',
-      pdfLink: '/Methodological Diagram.pdf',
-      docxLink: '/Methodological Diagram.docx',
-      icon: (
-        <><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M12 8v8 M8 12h8 M16 16l-4-4-4 4"/></>
-      ),
-      primaryButton: 'View Diagram',
-      secondaryButton: 'Download to fill'
+      )
     },
     {
       title: 'Abstract Checklist',
       type: 'Word Document',
-      description: 'A refined version of the full checklist, tailored for researchers to use when writing abstracts for CHA studies ensuring concise and transparent communication to a broad audience.',
+      description: 'A refined version of the CHART checklist, tailored for researchers to use when writing abstracts for CHA studies ensuring concise and transparent communication to a broad audience.',
       pdfLink: '/Abstract Checklist.pdf',
       docxLink: '/Abstract Checklist.docx',
+      fillLink: '/abstractchecklist',
       icon: (
         <><path d="M9 11l3 3l8-8"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9s4.03-9 9-9c1.51 0 2.93.37 4.18 1.03"/></>
-      ),
-      primaryButton: 'View Checklist',
-      secondaryButton: 'Download to fill'
+      )
+    },
+    {
+      title: 'Methodological Flow Diagram',
+      type: 'Diagram',
+      description: 'A visual flowchart that illustrates the systematic process of chatbot health advice (CHA) study development.',
+      pdfLink: '/Methodological Diagram.pdf',
+      docxLink: '/Methodological Diagram.docx',
+      fillLink: '/diagram',
+      icon: (
+        <><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M12 8v8 M8 12h8 M16 16l-4-4-4 4"/></>
+      )
     }
   ];
 
@@ -261,70 +206,53 @@ const Resources = () => {
             </ResourceDescription>
             
             <ResourceActions>
-              <Button href={resource.pdfLink} theme={theme} variant="primary" target="_blank" rel="noopener">
+              <ButtonLink to={resource.fillLink} theme={theme} variant="primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
                 </svg>
-                {resource.primaryButton}
+                {resource.title === 'Methodological Flow Diagram' ? 'Fill Diagram' : 'Fill Document'}
+              </ButtonLink>
+              
+              <Button 
+                href={resource.docxLink} 
+                theme={theme} 
+                variant="secondary"
+                download
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <path d="M7 10l5 5 5-5"/>
+                  <path d="M12 15V3"/>
+                </svg>
+                Download Word Document
               </Button>
               
-              {resource.title === 'Flow Diagram' ? (
-                <ButtonLink to="/diagram" theme={theme} variant="secondary">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <path d="M7 10l5 5 5-5"/>
-                    <path d="M12 15V3"/>
-                  </svg>
-                  {resource.secondaryButton}
-                </ButtonLink>
-              ) : (
-                <Button 
-                  href={resource.docxLink} 
+              <Button href={resource.pdfLink} theme={theme} variant="secondary" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                </svg>
+                View PDF
+              </Button>
+              
+              {resource.title !== 'Methodological Flow Diagram' && (
+                <ButtonLink 
+                  to={resource.title === 'CHART Checklist' ? '/fullchecklist-information' : '/abstractchecklist-information'}
                   theme={theme} 
                   variant="secondary"
-                  download
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <path d="M7 10l5 5 5-5"/>
-                    <path d="M12 15V3"/>
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4"/>
+                    <path d="M12 8h.01"/>
                   </svg>
-                  {resource.secondaryButton}
-                </Button>
+                  More Information
+                </ButtonLink>
               )}
             </ResourceActions>
           </ResourceItem>
         ))}
       </ResourceDetailed>
-      
-      <UsageGuide theme={theme}>
-        <h2>How to Use These Resources</h2>
-        <UsageSteps>
-          <Step theme={theme}>
-            <div className="step-number">1</div>
-            <div className="step-content">
-              <h3>Start with the Full Checklist</h3>
-              <p>Use this comprehensive guide throughout your study planning and reporting process.</p>
-            </div>
-          </Step>
-          
-          <Step theme={theme}>
-            <div className="step-number">2</div>
-            <div className="step-content">
-              <h3>Complete the Flow Diagram</h3>
-              <p>Follow the visual workflow to ensure systematic documentation of your study.</p>
-            </div>
-          </Step>
-          
-          <Step theme={theme}>
-            <div className="step-number">3</div>
-            <div className="step-content">
-              <h3>Apply the Abstract Checklist</h3>
-              <p>Use this tool to create clear, comprehensive abstracts that meet reporting standards.</p>
-            </div>
-          </Step>
-        </UsageSteps>
-      </UsageGuide>
     </PageContainer>
   );
 };

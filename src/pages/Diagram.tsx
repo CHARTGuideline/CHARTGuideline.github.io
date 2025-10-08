@@ -27,6 +27,14 @@ const PageHeader = styled.div<{ theme: any }>`
   }
 `;
 
+const TopActionButtons = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+`;
+
 const MainContent = styled.div`
   display: grid;
   grid-template-columns: 420px 1fr;
@@ -272,6 +280,9 @@ const Diagram = () => {
   const diagramRef = useRef<HTMLDivElement>(null);
   
   const [formData, setFormData] = useState({
+    // Diagram title
+    diagramTitle: 'Methodological Flow Diagram',
+    
     // Chatbot section
     totalChatbots: '',
     chatbotNames: '',
@@ -324,6 +335,7 @@ const Diagram = () => {
   
   const handleReset = () => {
     setFormData({
+      diagramTitle: 'Methodological Flow Diagram',
       totalChatbots: '',
       chatbotNames: '',
       baseModel: '',
@@ -489,6 +501,80 @@ const Diagram = () => {
     }
   };
   
+  const downloadAsWord = async () => {
+    const html2canvas = (await import('html2canvas')).default;
+    const { Document, Packer, Paragraph, TextRun, ImageRun } = await import('docx');
+    const { saveAs } = await import('file-saver');
+    
+    if (diagramRef.current) {
+      // Capture diagram as image
+      const parentContainer = diagramRef.current.parentElement;
+      const originalTransform = parentContainer ? parentContainer.style.transform : '';
+      
+      if (parentContainer) {
+        parentContainer.style.transform = 'none';
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      const canvas = await html2canvas(diagramRef.current, {
+        scale: 2.5,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        allowTaint: true,
+        scrollY: 0,
+        scrollX: 0
+      });
+      
+      if (parentContainer) {
+        parentContainer.style.transform = originalTransform;
+      }
+      
+      // Convert canvas to blob
+      const imageBlob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((blob) => resolve(blob!), 'image/png');
+      });
+      
+      const arrayBuffer = await imageBlob.arrayBuffer();
+      
+      // Create Word document
+      const doc = new Document({
+        sections: [{
+          properties: {},
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: formData.diagramTitle || 'Methodological Flow Diagram',
+                  bold: true,
+                  size: 32, // 16pt
+                }),
+              ],
+              spacing: {
+                after: 200,
+              },
+            }),
+            new Paragraph({
+              children: [
+                new ImageRun({
+                  data: new Uint8Array(arrayBuffer),
+                  transformation: {
+                    width: 600,
+                    height: (canvas.height * 600) / canvas.width,
+                  },
+                  type: 'png',
+                }),
+              ],
+            }),
+          ],
+        }],
+      });
+      
+      const blob = await Packer.toBlob(doc);
+      saveAs(blob, 'chart-methodological-diagram.docx');
+    }
+  };
+  
   const downloadAsSVG = async () => {
     alert('SVG export coming soon! Use PDF or JPG for now.');
   };
@@ -500,8 +586,25 @@ const Diagram = () => {
         <p>Fill in your study details to create a customized flowchart</p>
       </PageHeader>
       
+      <TopActionButtons>
+        <Button theme={theme} variant="primary" onClick={downloadAsWord}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+          </svg>
+          Download as Word Document
+        </Button>
+      </TopActionButtons>
+      
       <MainContent>
         <FormSection theme={theme}>
+          <SectionTitle theme={theme}>Diagram Title</SectionTitle>
+          
+          <FormGroup>
+            <Label theme={theme}>Title</Label>
+            <Input theme={theme} type="text" name="diagramTitle" value={formData.diagramTitle} onChange={handleChange} placeholder="Methodological Flow Diagram" />
+          </FormGroup>
+          
           <SectionTitle theme={theme}>Chatbot Information</SectionTitle>
           
           <FormGroup>
@@ -718,7 +821,7 @@ const Diagram = () => {
               
               {/* Title */}
               <h2 style={{ fontWeight: 'bold', fontSize: '1.05rem', marginBottom: '1.2rem', color: '#1a1f2e' }}>
-                CHART Methodological Diagram
+                {formData.diagramTitle || 'Methodological Flow Diagram'}
               </h2>
               
               {/* Chatbot Section */}
