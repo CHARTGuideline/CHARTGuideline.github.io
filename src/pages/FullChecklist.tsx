@@ -215,7 +215,7 @@ const FullChecklist = () => {
                 tableHeader: true,
                 children: [
                   new TableCell({
-                    children: [new Paragraph({ children: [new TextRun({ text: 'Section/Topic', bold: true, color: 'FFFFFF' })] })],
+                    children: [new Paragraph({ children: [new TextRun({ text: 'Heading', bold: true, color: 'FFFFFF' })] })],
                     width: { size: 18, type: WidthType.PERCENTAGE },
                     shading: { fill: '6D94C5' },
                   }),
@@ -225,13 +225,13 @@ const FullChecklist = () => {
                     shading: { fill: '6D94C5' },
                   }),
                   new TableCell({
-                    children: [new Paragraph({ children: [new TextRun({ text: 'Checklist Item', bold: true, color: 'FFFFFF' })] })],
-                    width: { size: 42, type: WidthType.PERCENTAGE },
+                    children: [new Paragraph({ children: [new TextRun({ text: 'Item', bold: true, color: 'FFFFFF' })] })],
+                    width: { size: 46, type: WidthType.PERCENTAGE },
                     shading: { fill: '6D94C5' },
                   }),
                   new TableCell({
-                    children: [new Paragraph({ children: [new TextRun({ text: 'Page # / Location*', bold: true, color: 'FFFFFF' })] })],
-                    width: { size: 32, type: WidthType.PERCENTAGE },
+                    children: [new Paragraph({ children: [new TextRun({ text: 'Page #', bold: true, color: 'FFFFFF' })] })],
+                    width: { size: 28, type: WidthType.PERCENTAGE },
                     shading: { fill: '6D94C5' },
                   }),
                 ],
@@ -262,11 +262,11 @@ const FullChecklist = () => {
                       }),
                       new TableCell({
                         children: [new Paragraph(item.description)],
-                        width: { size: 42, type: WidthType.PERCENTAGE },
+                        width: { size: 46, type: WidthType.PERCENTAGE },
                       }),
                       new TableCell({
                         children: [new Paragraph('')],
-                        width: { size: 32, type: WidthType.PERCENTAGE },
+                        width: { size: 28, type: WidthType.PERCENTAGE },
                       }),
                     ],
                   })
@@ -444,7 +444,7 @@ const FullChecklist = () => {
   return (
     <PageContainer>
       <PageHeader theme={theme}>
-        <h1>CHART Checklist</h1>
+        <h1>Full Checklist</h1>
         <p>Complete the checklist items and save as PDF</p>
       </PageHeader>
       
@@ -479,10 +479,10 @@ const FullChecklist = () => {
         <Table>
           <thead>
             <tr>
-              <th style={{ width: '18%' }}>Section/Topic</th>
+              <th style={{ width: '18%' }}>Heading</th>
               <th style={{ width: '8%' }}>Item #</th>
-              <th style={{ width: '42%' }}>Checklist Item</th>
-              <th style={{ width: '32%' }}>Page # / Location*</th>
+              <th style={{ width: '46%' }}>Item</th>
+              <th style={{ width: '28%' }}>Page #</th>
             </tr>
           </thead>
           <tbody>
@@ -501,7 +501,7 @@ const FullChecklist = () => {
                         type="text"
                         value={responses[item.number] || ''}
                         onChange={(e) => handleResponseChange(item.number, e.target.value)}
-                        placeholder="Enter page # or location"
+                        placeholder="Enter page #"
                       />
                     </td>
                   </tr>
@@ -510,10 +510,6 @@ const FullChecklist = () => {
             ))}
           </tbody>
         </Table>
-        
-        <p style={{ fontSize: '0.9rem', color: '#666', fontStyle: 'italic' }}>
-          *If in supplementary appendix, indicate "supp" and appendix #, if applicable.
-        </p>
       </ChecklistContainer>
       
       <ActionButtons>

@@ -118,10 +118,10 @@ const Header = () => {
         </Logo>
         <NavLinks isOpen={isOpen} theme={theme}>
           <NavLink to="/" theme={theme} onClick={closeMenu}>Home</NavLink>
-          <NavLink to="/fullchecklist" theme={theme} onClick={closeMenu}>CHART Checklist</NavLink>
+          <NavLink to="/fullchecklist" theme={theme} onClick={closeMenu}>Full Checklist</NavLink>
           <NavLink to="/abstractchecklist" theme={theme} onClick={closeMenu}>Abstract Checklist</NavLink>
           <NavLink to="/diagram" theme={theme} onClick={closeMenu}>Methodological Diagram</NavLink>
-          <NavLink to="/citation" theme={theme} onClick={closeMenu}>Citation</NavLink>
+          <NavLink to="/citation" theme={theme} onClick={closeMenu}>Cite Chart</NavLink>
         </NavLinks>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <ThemeToggle onClick={toggleTheme} theme={theme}>

@@ -158,7 +158,7 @@ const About = () => {
         >
           <h2>Our Mission</h2>
           <p>
-            To promote transparent and standardized reporting of chatbot health advice studies to improve research quality and facilitate implementation.
+            To promote transparent and standardized reporting of CHA studies to improve research quality and facilitate implementation.
           </p>
         </ContentBlock>
         
@@ -193,7 +193,7 @@ const About = () => {
             </FeatureIcon>
             <FeatureTitle theme={theme}>Evidence-Based</FeatureTitle>
             <FeatureDescription theme={theme}>
-              Systematic review
+              Developed through a comprehensive systematic review and multiple expert consensus rounds including a Delphi consensus
             </FeatureDescription>
           </FeatureItem>
           
@@ -212,7 +212,7 @@ const About = () => {
             </FeatureIcon>
             <FeatureTitle theme={theme}>Comprehensive</FeatureTitle>
             <FeatureDescription theme={theme}>
-              Addresses all methodological aspects of CHA study development
+              Addresses all methodological aspects of CHA studies
             </FeatureDescription>
           </FeatureItem>
           

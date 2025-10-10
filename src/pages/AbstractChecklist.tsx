@@ -313,7 +313,7 @@ const AbstractChecklist = () => {
                     shading: { fill: '6D94C5' },
                   }),
                   new TableCell({
-                    children: [new Paragraph({ children: [new TextRun({ text: 'CHART Checklist #', bold: true, color: 'FFFFFF' })] })],
+                    children: [new Paragraph({ children: [new TextRun({ text: 'Item #', bold: true, color: 'FFFFFF' })] })],
                     width: { size: 8, type: WidthType.PERCENTAGE },
                     shading: { fill: '6D94C5' },
                   }),
@@ -447,7 +447,7 @@ const AbstractChecklist = () => {
           <thead>
             <tr>
               <th style={{ width: '18%' }}>Heading</th>
-              <th style={{ width: '8%' }}>CHART Checklist #</th>
+              <th style={{ width: '8%' }}>Item #</th>
               <th style={{ width: '46%' }}>Item</th>
               <th style={{ width: '28%' }}>Page #</th>
             </tr>

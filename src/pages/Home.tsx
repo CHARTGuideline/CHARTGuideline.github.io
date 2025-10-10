@@ -183,7 +183,7 @@ const Home = () => {
 
   const resources = [
     {
-      title: 'CHART Checklist',
+      title: 'Full Checklist',
       description: 'Comprehensive checklist for chatbot health advice study authors',
       link: '/FullChecklist',
       isDownload: false

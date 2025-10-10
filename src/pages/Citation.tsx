@@ -210,7 +210,7 @@ const Citation = () => {
     { name: 'Annals of Family Medicine', url: 'https://www.annfammed.org/content/early/2025/07/29/afm.250386' },
     { name: 'Artificial Intelligence in Medicine', url: 'https://www.sciencedirect.com/science/article/pii/S0933365725001575?via%3Dihub' },
     { name: 'BMC Medicine', url: 'https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-025-04274-w' },
-    { name: 'British Journal of Surgery', url: 'https://academic.oup.com/bjs/article/112/8/znaf142/8220472?login=true' }
+    { name: 'BJS', url: 'https://academic.oup.com/bjs/article/112/8/znaf142/8220472?login=true' }
   ];
   
   const copyCitation = () => {
@@ -231,7 +231,6 @@ const Citation = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2>Cite CHART</h2>
         <CitationBox theme={theme}>
           <CitationControls theme={theme}>
             <label htmlFor="citationFormat">Citation Format:</label>

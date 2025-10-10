@@ -141,11 +141,11 @@ const Resources = () => {
 
   const resources = [
     {
-      title: 'CHART Checklist',
+      title: 'Full Checklist',
       type: 'Word Document',
       description: 'A comprehensive checklist that provides complete guidance for conducting and reporting chatbot health advice studies. Includes detailed criteria for transparent reporting.',
-      pdfLink: '/CHART Checklist.pdf',
-      docxLink: '/CHART Checklist.docx',
+      pdfLink: '/Full Checklist.pdf',
+      docxLink: '/Full Checklist.docx',
       fillLink: '/fullchecklist',
       icon: (
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/>
@@ -154,7 +154,7 @@ const Resources = () => {
     {
       title: 'Abstract Checklist',
       type: 'Word Document',
-      description: 'A refined version of the CHART checklist, tailored for researchers to use when writing abstracts for CHA studies ensuring concise and transparent communication to a broad audience.',
+      description: 'A refined version of the full checklist, tailored for researchers to use when writing abstracts for CHA studies ensuring concise and transparent communication to a broad audience.',
       pdfLink: '/Abstract Checklist.pdf',
       docxLink: '/Abstract Checklist.docx',
       fillLink: '/abstractchecklist',
@@ -237,7 +237,7 @@ const Resources = () => {
               
               {resource.title !== 'Methodological Flow Diagram' && (
                 <ButtonLink 
-                  to={resource.title === 'CHART Checklist' ? '/fullchecklist-information' : '/abstractchecklist-information'}
+                  to={resource.title === 'Full Checklist' ? '/fullchecklist-information' : '/abstractchecklist-information'}
                   theme={theme} 
                   variant="secondary"
                 >

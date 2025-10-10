@@ -329,8 +329,8 @@ const Feedback = () => {
           <label htmlFor="mostUseful">Which resource was most useful?</label>
           <CheckboxGroup theme={theme}>
             <label>
-              <input type="checkbox" id="useful-full" name="useful" value="chart-checklist" />
-              CHART Checklist
+              <input type="checkbox" id="useful-full" name="useful" value="full-checklist" />
+              Full Checklist
             </label>
             <label>
               <input type="checkbox" id="useful-flow" name="useful" value="flow-diagram" />

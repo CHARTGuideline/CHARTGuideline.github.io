@@ -501,78 +501,14 @@ const Diagram = () => {
     }
   };
   
-  const downloadAsWord = async () => {
-    const html2canvas = (await import('html2canvas')).default;
-    const { Document, Packer, Paragraph, TextRun, ImageRun } = await import('docx');
-    const { saveAs } = await import('file-saver');
-    
-    if (diagramRef.current) {
-      // Capture diagram as image
-      const parentContainer = diagramRef.current.parentElement;
-      const originalTransform = parentContainer ? parentContainer.style.transform : '';
-      
-      if (parentContainer) {
-        parentContainer.style.transform = 'none';
-      }
-      
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      const canvas = await html2canvas(diagramRef.current, {
-        scale: 2.5,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        allowTaint: true,
-        scrollY: 0,
-        scrollX: 0
-      });
-      
-      if (parentContainer) {
-        parentContainer.style.transform = originalTransform;
-      }
-      
-      // Convert canvas to blob
-      const imageBlob = await new Promise<Blob>((resolve) => {
-        canvas.toBlob((blob) => resolve(blob!), 'image/png');
-      });
-      
-      const arrayBuffer = await imageBlob.arrayBuffer();
-      
-      // Create Word document
-      const doc = new Document({
-        sections: [{
-          properties: {},
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: formData.diagramTitle || 'Methodological Flow Diagram',
-                  bold: true,
-                  size: 32, // 16pt
-                }),
-              ],
-              spacing: {
-                after: 200,
-              },
-            }),
-            new Paragraph({
-              children: [
-                new ImageRun({
-                  data: new Uint8Array(arrayBuffer),
-                  transformation: {
-                    width: 600,
-                    height: (canvas.height * 600) / canvas.width,
-                  },
-                  type: 'png',
-                }),
-              ],
-            }),
-          ],
-        }],
-      });
-      
-      const blob = await Packer.toBlob(doc);
-      saveAs(blob, 'chart-methodological-diagram.docx');
-    }
+  const downloadAsWord = () => {
+    // Download the editable Word document from public folder
+    const link = document.createElement('a');
+    link.href = '/Methodological Diagram.docx';
+    link.download = 'Methodological Diagram.docx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
   
   const downloadAsSVG = async () => {

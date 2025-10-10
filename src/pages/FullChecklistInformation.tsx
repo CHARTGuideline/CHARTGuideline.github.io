@@ -929,7 +929,7 @@ const FullChecklistInformation = () => {
       </BackButton>
       
       <PageHeader theme={theme}>
-        <h1>CHART Checklist Information</h1>
+        <h1>Full Checklist Information</h1>
         <p>Detailed guidance for each checklist item</p>
       </PageHeader>
       

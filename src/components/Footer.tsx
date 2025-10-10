@@ -73,7 +73,7 @@ const Footer = () => {
         <FooterSection theme={theme}>
           <h4>Contact</h4>
           <p>For questions and collaboration inquiries:</p>
-          <a href="mailto:info@chartguideline.com">info@chartguideline.com</a>
+          <a href="mailto:info@chartguideline.org">info@chartguideline.org</a>
         </FooterSection>
       </FooterContent>
       <Copyright theme={theme}>
