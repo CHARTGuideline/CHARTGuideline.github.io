@@ -280,6 +280,52 @@ const Feedback = () => {
     }
   };
   
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    // Get rating
+    const rating = formData.get('rating');
+    
+    // Get useful resources
+    const usefulResources = formData.getAll('useful').join(', ') || 'None selected';
+    
+    // Get comments
+    const comments = formData.get('comments') || 'No comments provided';
+    
+    // Get follow-up preference
+    const followUp = formData.get('followUp') === 'yes' ? 'Yes' : 'No';
+    const email = formData.get('email') || 'Not provided';
+    
+    // Create email body
+    const emailBody = `
+CHART Feedback Submission
+
+Rating: ${rating}
+
+Most Useful Resources: ${usefulResources}
+
+Comments and Suggestions:
+${comments}
+
+Follow-up Requested: ${followUp}
+${followUp === 'Yes' ? `Contact Email: ${email}` : ''}
+    `.trim();
+    
+    // Create mailto link
+    const mailtoLink = `mailto:brighthuo@dal.ca?subject=CHART Feedback Submission&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Show success message
+    setShowSuccess(true);
+    
+    // Reset form
+    e.currentTarget.reset();
+    setShowEmailField(false);
+  };
+  
   return (
     <PageContainer theme={theme}>
       <PageHeader theme={theme}>
@@ -299,15 +345,11 @@ const Feedback = () => {
       
       <FeedbackForm
         theme={theme}
-        action="https://formspree.io/f/mwprvngr"
-        method="POST"
+        onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <input type="hidden" name="_subject" value="New CHART Feedback Submission" />
-        <input type="hidden" name="_next" value={`${window.location.origin}${window.location.pathname}?success=true`} />
-        <input type="text" name="_gotcha" style={{ display: 'none' }} />
         
         <FormGroup theme={theme}>
           <label htmlFor="experience">Rate your overall experience *</label>
