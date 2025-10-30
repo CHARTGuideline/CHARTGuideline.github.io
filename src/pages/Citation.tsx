@@ -250,8 +250,8 @@ const Citation = () => {
   const citations = articleCitations[selectedArticle as keyof typeof articleCitations];
   
   const mainArticle = {
-    name: 'BMJ Medicine (E&E)',
-    url: 'https://bmjmedicine.bmj.com/content/4/1/e001632',
+    name: 'The BMJ (E&E)',
+    url: 'https://www.bmj.com/content/390/bmj-2024-083305',
     featured: true
   };
 
@@ -260,7 +260,7 @@ const Citation = () => {
     { name: 'Artificial Intelligence in Medicine', url: 'https://www.sciencedirect.com/science/article/pii/S0933365725001575?via%3Dihub' },
     { name: 'BJS', url: 'https://academic.oup.com/bjs/article/112/8/znaf142/8220472?login=true' },
     { name: 'BMC Medicine', url: 'https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-025-04274-w' },
-    { name: 'BMJ', url: 'https://www.bmj.com/content/390/bmj-2024-083305' },
+    { name: 'BMJ medicine', url: 'https://bmjmedicine.bmj.com/content/4/1/e001632' },
     { name: 'JAMA Network Open', url: 'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2837224' }
   ];
   
