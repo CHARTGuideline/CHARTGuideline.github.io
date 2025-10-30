@@ -186,6 +186,16 @@ const JournalLink = styled.a<{ theme: any; featured?: boolean }>`
   }
 `;
 
+const StatusText = styled.span<{ theme: any }>`
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: ${props => props.theme.surface};
+  color: ${props => props.theme.textSecondary};
+  border: 1px dashed ${props => props.theme.border};
+  font-weight: 600;
+`;
+
 const Citation = () => {
   const { theme } = useTheme();
   const [citationFormat, setCitationFormat] = useState('ama');
@@ -194,10 +204,10 @@ const Citation = () => {
   
   const articleCitations = {
     'bmj-medicine-ee': {
-      ama: 'Reporting guideline for chatbot health advice studies: the Chatbot Assessment Reporting Tool (CHART) statement. BMJ Medicine. 2025;4:e001632. https://doi.org/10.1136/bmjmed-2025-001632',
-      vancouver: 'Reporting guideline for chatbot health advice studies: the Chatbot Assessment Reporting Tool (CHART) statement. BMJ Medicine. 2025;4:e001632. https://doi.org/10.1136/bmjmed-2025-001632',
-      apa: 'CHART Collaborative. (2025). Reporting guideline for chatbot health advice studies: The Chatbot Assessment Reporting Tool (CHART) statement. BMJ Medicine, 4, e001632. https://doi.org/10.1136/bmjmed-2025-001632',
-      mla: 'CHART Collaborative. "Reporting Guideline for Chatbot Health Advice Studies: The Chatbot Assessment Reporting Tool (CHART) Statement." BMJ Medicine, vol. 4, 2025, e001632. doi:10.1136/bmjmed-2025-001632.'
+      ama: 'CHART Collaborative. Reporting guidelines for chatbot health advice studies: explanation and elaboration for the Chatbot Assessment Reporting Tool (CHART). BMJ. 2025;390:e083305. Published 2025 Aug 1. doi:10.1136/bmj-2024-083305',
+      vancouver: 'CHART Collaborative. Reporting guidelines for chatbot health advice studies: explanation and elaboration for the Chatbot Assessment Reporting Tool (CHART). BMJ. 2025 Aug 1;390:e083305. doi: 10.1136/bmj-2024-083305.',
+      apa: 'CHART Collaborative (2025). Reporting guidelines for chatbot health advice studies: explanation and elaboration for the Chatbot Assessment Reporting Tool (CHART). BMJ (Clinical research ed.), 390, e083305. https://doi.org/10.1136/bmj-2024-083305',
+      mla: 'CHART Collaborative. “Reporting guidelines for chatbot health advice studies: explanation and elaboration for the Chatbot Assessment Reporting Tool (CHART).” BMJ (Clinical research ed.) vol. 390 e083305. 1 Aug. 2025, doi:10.1136/bmj-2024-083305'
     },
     'annals-family-medicine': {
       ama: 'Reporting Guideline for Chatbot Health Advice Studies: Chatbot Assessment Reporting Tool (CHART) Statement. The Annals of Family Medicine. 2025;23(5):389-398. doi:https://doi.org/10.1370/afm.250386',
@@ -238,12 +248,12 @@ const Citation = () => {
   };
   
   const articleOptions = [
-    { value: 'bmj-medicine-ee', label: 'BMJ Medicine (E&E)' },
+    { value: 'bmj-medicine-ee', label: 'The BMJ (E&E)' },
     { value: 'annals-family-medicine', label: 'Annals of Family Medicine' },
     { value: 'artificial-intelligence-medicine', label: 'Artificial Intelligence in Medicine' },
     { value: 'bjs', label: 'BJS' },
-    { value: 'bmj', label: 'BMJ' },
     { value: 'bmc-medicine', label: 'BMC Medicine' },
+    { value: 'bmj', label: 'BMJ Medicine' },
     { value: 'jama-network-open', label: 'JAMA Network Open' }
   ];
   
@@ -263,7 +273,14 @@ const Citation = () => {
     { name: 'BMJ medicine', url: 'https://bmjmedicine.bmj.com/content/4/1/e001632' },
     { name: 'JAMA Network Open', url: 'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2837224' }
   ];
-  
+
+  const invitedEditorials = [
+    { name: 'The Lancet Digital Health', url: 'https://www.thelancet.com/journals/landig/article/PIIS2589-7500(25)00092-5/fulltext', status: 'Under review' },
+    { name: 'NPJ Digital Medicine', url: null, status: 'Under review' },
+    { name: 'International Journal of Surgery', url: null, status: 'Under review' },
+    { name: 'Journal of clinical epidemiology', url: null, status: 'Under review' }
+  ];
+
   const copyCitation = () => {
     navigator.clipboard.writeText(citations[citationFormat as keyof typeof citations]);
     setCopySuccess(true);
@@ -352,6 +369,33 @@ const Citation = () => {
                 </svg>
                 View Article
               </JournalLink>
+            </JournalItem>
+          ))}
+        </JournalsGrid>
+      </CitationBlock>
+
+      <CitationBlock
+        theme={theme}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <h2>Invited Editorials</h2>
+        <JournalsGrid>
+          {invitedEditorials.map((journal, index) => (
+            <JournalItem key={index} theme={theme}>
+              <h3>{journal.name}</h3>
+              {journal.url ? (
+                <JournalLink href={journal.url} target="_blank" rel="noopener noreferrer" theme={theme}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  View Article
+                </JournalLink>
+              ) : (
+                <StatusText theme={theme}>{journal.status ?? 'Under review'}</StatusText>
+              )}
             </JournalItem>
           ))}
         </JournalsGrid>
