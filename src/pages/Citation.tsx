@@ -276,7 +276,7 @@ const Citation = () => {
 
   const invitedEditorials = [
     { name: 'The Lancet Digital Health', url: 'https://www.thelancet.com/journals/landig/article/PIIS2589-7500(25)00092-5/fulltext', status: 'Under review' },
-    { name: 'NPJ Digital Medicine', url: null, status: 'Under review' },
+    { name: 'NPJ Digital Medicine', url: 'https://www.nature.com/articles/s41746-025-02113-z', status: 'Under review' },
     { name: 'International Journal of Surgery', url: null, status: 'Under review' },
     { name: 'Journal of clinical epidemiology', url: null, status: 'Under review' }
   ];
